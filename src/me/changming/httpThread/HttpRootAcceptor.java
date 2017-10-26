@@ -19,37 +19,19 @@ public class HttpRootAcceptor extends Thread {
 
 			String str = null;
 			while ( ( str = bufferedReader.readLine() ) != null && !str.equals( "" ) )
-				System.out.println( str );
+				System.out.println( str );// 后续可以写方法处理requestHeader和requestBody
 
 			bufferedWriter = new BufferedWriter( new OutputStreamWriter( socket.getOutputStream() ) );
 			bufferedWriter.write( "HTTP/1.1 200 OK\n" );
+			// 后续可以自定义是json格式还是text/html格式
 			bufferedWriter.write( "Content-Type: application/json; charset=UTF-8\n\n" );
 			bufferedWriter.write( "{\"a\": \"Hello\", \"b\": \"World\"}" );
+			bufferedWriter.flush();
+			bufferedWriter.close();
+			bufferedReader.close();
+			socket.close();
 		} catch ( IOException e ) {
 			e.printStackTrace();
-		} finally {
-			if ( bufferedReader != null ) {
-				try {
-					bufferedReader.close();
-				} catch ( IOException e ) {
-					e.printStackTrace();
-				}
-			}
-			if ( bufferedWriter != null ) {
-				try {
-					bufferedWriter.flush();
-					bufferedWriter.close();
-				} catch ( IOException e ) {
-					e.printStackTrace();
-				}
-			}
-			if ( socket != null ) {
-				try {
-					socket.close();
-				} catch ( IOException e ) {
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 }

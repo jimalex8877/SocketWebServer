@@ -10,6 +10,7 @@ public class TcpServer {
 	public static void main( String[] args ) {
 		ServerSocket serverSocket = null;
 		try {
+			// 监听8080端口
 			serverSocket = new ServerSocket( 8080 );
 			Socket socket = serverSocket.accept();
 
